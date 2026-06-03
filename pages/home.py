@@ -557,7 +557,7 @@ class HomePage:
                         content=ft.Row(
                             controls=[
                                 ft.Icon(ft.Icons.MAIL_OUTLINE, size=14, color=BG),
-                                ft.Text("Get in touch", size=13, color=BG,
+                                ft.Text("michaelnghidengwa7@gmail.com", size=13, color=BG,
                                         weight=ft.FontWeight.W_600),
                             ],
                             spacing=6, tight=True,
