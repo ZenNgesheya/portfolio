@@ -39,47 +39,97 @@ def _hoverable(container: ft.Container, accent_color: str) -> ft.Container:
 class TimelinePage:
     ENTRIES = [
         {
-            "week": "Week 1", "dates": "20 Jan – 26 Jan",
-            "task": "Project setup & repo initialisation",
-            "contribution": "Initialised the GitHub repository, set up branching strategy, and created the base Flet app structure shared with the team.",
+            "week": "Week 1", "dates": "02–06 March 2026",
+            "task": "Project Formulation & Problem Brainstorming",
+            "contribution": "I participated in the formation of Group 13 and contributed to brainstorming ideas for the mobile application. I helped the team discuss real-world infrastructure problems affecting Ongwediva residents and suggested features that could improve communication between residents and the town council..",
             "status": "Done", "icon": ft.Icons.ROCKET_LAUNCH, "tags": ["Git", "Setup"],
         },
         {
-            "week": "Week 2", "dates": "27 Jan – 2 Feb",
-            "task": "Civil engineering module — input form",
-            "contribution": "Built the material input form for the Civil module using ft.TextField and ft.Dropdown. Added client-side validation.",
+            "week": "Week 2", "dates": "09–13 March 2026",
+            "task": "Environment Setup & Repository Initialization",
+            "contribution": "I assisted in setting up the development environment using Expo, React Native, and Firebase. I also helped create and organize the GitHub repository structure and tested Expo Go on my mobile device to ensure the application could run correctly.",
             "status": "Done", "icon": ft.Icons.BUILD, "tags": ["Python", "UI"],
         },
         {
-            "week": "Week 3", "dates": "3 Feb – 9 Feb",
-            "task": "Cost calculation logic",
-            "contribution": "Implemented the Total Cost formula (Σ Qᵢ × Pᵢ + Overheads) in Python and wired it to the UI. Wrote unit tests.",
+            "week": "Week 3", "dates": "16–20 March 2026",
+            "task": "Pitch Preparation & Technical Ideation",
+            "contribution": "I contributed during Pitch Week by helping prepare the presentation of our three proposed app ideas. I explained possible app features and gave input on how Firebase could be used for storing reports and user information.",
             "status": "Done", "icon": ft.Icons.CALCULATE, "tags": ["Python", "Maths"],
         },
         {
-            "week": "Week 4", "dates": "10 Feb – 16 Feb",
-            "task": "Results display & data table",
-            "contribution": "Created the ft.DataTable component showing itemised cost breakdown. Added CSV export functionality.",
+            "week": "Week 4", "dates": "23–27 March 2026",
+            "task": "Scope Refinement & Feature Definition",
+            "contribution": "After our app idea was approved, I participated in refining the project scope and discussing the final feature list for the Fix-Flow application. I also helped clarify user requirements and possible report categories.",
             "status": "Done", "icon": ft.Icons.TABLE_CHART, "tags": ["Python", "UI"],
         },
         {
-            "week": "Week 5", "dates": "17 Feb – 23 Feb",
-            "task": "Code review & pull request",
-            "contribution": "Reviewed 3 teammates' PRs, flagged a critical off-by-one error in the Mining module loop. Merged approved changes.",
+            "week": "Week 5", "dates": "30 March–03 April 2026",
+            "task": "SRS Initiation & Workflow Design",
+            "contribution": "I contributed to the beginning of the System Requirements Specification (SRS) document by helping define the project scope, target users, and overall system workflow. I also shared coding ideas for implementing authentication and reporting features.",
             "status": "Done", "icon": ft.Icons.RATE_REVIEW, "tags": ["Git", "Collaboration"],
         },
         {
-            "week": "Week 6", "dates": "24 Feb – 2 Mar",
-            "task": "Portfolio — this web app",
-            "contribution": "Started building the individual Flet web portfolio. Completed Timeline and MATLAB hub pages.",
-            "status": "In Progress", "icon": ft.Icons.WEB, "tags": ["Python", "UI"],
+            "week": "Week 6", "dates": "06–10 April 2026",
+            "task": "Database Schema & Functional Requirements",
+            "contribution": "I worked with other coders to discuss Firebase Firestore collections and how reports, comments, and announcements would be stored in the database. I also reviewed functional requirements related to user registration and report submission.",
+            "status": "Done", "icon": ft.Icons.WEB, "tags": ["Python", "UI"],
         },
+        {
+            "week": "Week 7", "dates": "13–17 April 2026",
+            "task": "Non-Functional Requirements & Security Planning",
+            "contribution": "I assisted with reviewing the non-functional requirements and use case discussions. I contributed technical suggestions on app performance, security, and reliability, especially concerning Firebase Authentication and Firestore rules.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 8", "dates": "20–25 April 2026",
+            "task": "SRS Finalization & Quality Review",
+            "contribution": "I helped finalize and review the SRS document before submission. I checked that the listed functional requirements matched the intended app functionality and supported the documentation team with corrections and formatting.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 9", "dates": "27 April–01 May 2026",
+            "task": "UI/UX Architecture & Navigation Planning",
+            "contribution": "I participated in the UI/UX planning phase by discussing screen layouts and navigation flow with the design team. I provided suggestions on how the home screen and report submission forms should function within React Native.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 10", "dates": "04–08 May 2026",
+            "task": "Frontend Implementation & Layout Testing",
+            "contribution": "I started implementing some React Native screens and assisted with integrating navigation between screens. I also tested form layouts and discussed how users would upload images and report infrastructure issues.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 11", "dates": "11–15 May 2026",
+            "task": "Firebase Integration & Workflow Verification",
+            "contribution": "I worked on improving app functionality by assisting with Firebase integration and helping connect frontend components to Firestore. I also tested user login and report submission workflows.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 12", "dates": "18–30 May 2026",
+            "task": "Prototype Testing & UI Optimization",
+            "contribution": "I helped review the prototype and tested navigation flows and screen responsiveness. I contributed to fixing UI issues and ensured some screens aligned with the approved design prototype.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 13", "dates": "01–06 June 2026",
+            "task": "Demo Preparation & Milestone Verification",
+            "contribution": "I participated in preparing the progress demonstration for Mr. Abisai. I assisted in testing the Expo application, checking authentication features, and verifying Firestore read/write operations before the live demo.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+        {
+            "week": "Week 14", "dates": "08–13 June 2026",
+            "task": "Final Sprint, Bug Fixing & APK Build",
+            "contribution": "I contributed during the final sprint by helping fix bugs, improving app stability, and testing the final APK build. I also assisted the group in preparing the final submission package and reviewing implemented features against the SRS requirements.",
+            "status": "Done", "icon": ft.Icons.LOCK, "tags": ["Python", "Backend"],
+        },
+
+        
     ]
 
     STATUS_STYLES = {
         "Done":        (ACCENT_B + "33", ACCENT, ACCENT),
         "In Progress": (AMBER + "33",    AMBER,  AMBER),
-        "Pending":     ("#6E40C933",     "#A371F7", "#A371F7"),
+        "Done":     ("#6E40C933",     "#A371F7", "#A371F7"),
     }
 
     def _tag_chip(self, label):

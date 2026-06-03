@@ -315,7 +315,7 @@ class HomePage:
                                         content=ft.Row(
                                             controls=[
                                                 ft.Icon(ft.Icons.FOLDER_OUTLINED, size=13, color=TEXT_MUT),
-                                                ft.Text("GitHub", size=12, color=TEXT_MUT),
+                                                ft.Text("ZenNgesheya", size=12, color=TEXT_MUT),
                                             ],
                                             spacing=5, tight=True,
                                         ),
@@ -326,7 +326,7 @@ class HomePage:
                                         content=ft.Row(
                                             controls=[
                                                 ft.Icon(ft.Icons.LINK, size=13, color=TEXT_MUT),
-                                                ft.Text("LinkedIn", size=12, color=TEXT_MUT),
+                                                ft.Text("Michael Nghidengwa", size=12, color=TEXT_MUT),
                                             ],
                                             spacing=5, tight=True,
                                         ),
@@ -337,7 +337,7 @@ class HomePage:
                                         content=ft.Row(
                                             controls=[
                                                 ft.Icon(ft.Icons.LOCATION_ON_OUTLINED, size=13, color=TEXT_MUT),
-                                                ft.Text("Your City", size=12, color=TEXT_MUT),
+                                                ft.Text("ONGWEDIVA", size=12, color=TEXT_MUT),
                                             ],
                                             spacing=5, tight=True,
                                         ),
@@ -427,7 +427,7 @@ class HomePage:
                             ft.Column(
                                 controls=[
                                     _skill_bar("SolidWorks",        90, ACCENT),
-                                    _skill_bar("ANSYS / FEA",       70, ACCENT),
+                                    _skill_bar("Software Development",       70, ACCENT),
                                     _skill_bar("AutoCAD",           75, ACCENT),
                                 ],
                                 spacing=16,
