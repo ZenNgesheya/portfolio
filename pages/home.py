@@ -373,7 +373,7 @@ class HomePage:
         stats = ft.Row(
             controls=[
                 _stat_card("12+", "Projects Completed", ft.Icons.BUILD_OUTLINED,  ACCENT),
-                _stat_card("3rd", "Year of Study",      ft.Icons.SCHOOL_OUTLINED, BLUE),
+                _stat_card("2nd", "Year of Study",      ft.Icons.SCHOOL_OUTLINED, BLUE),
                 _stat_card("3.8", "GPA / 4.0",          ft.Icons.STAR_OUTLINE,    ORANGE),
                 _stat_card("2×",  "Internships",        ft.Icons.WORK_OUTLINE,    ACCENT),
             ],
@@ -477,7 +477,7 @@ class HomePage:
                                         spacing=8,
                                     ),
                                     ft.Text(
-                                        "Third-year Mechanical Engineering student focused on design, "
+                                        "Second-year Mechanical Engineering student focused on design, "
                                         "simulation, and manufacturing. I enjoy bridging theory and the "
                                         "physical world through hands-on projects and prototyping.",
                                         size=13, color=TEXT_SEC,
