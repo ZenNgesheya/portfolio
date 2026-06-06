@@ -166,6 +166,7 @@ class BlogPage:
     def __init__(self):
         self._active_tag = None
         self._cards_ref  = ft.Ref[ft.Column]()
+        self._page       = None
 
     def _tag_chip(self, label):
         return ft.Container(
@@ -193,7 +194,8 @@ class BlogPage:
 
     def _build_video_section(self, video_url, thumb_url):
         def open_video(e):
-            e.page.launch_url(video_url)
+            if self._page:
+                self._page.launch_url(video_url)
 
         return ft.Container(
             content=ft.Column(controls=[
@@ -299,6 +301,7 @@ class BlogPage:
         return filter_row
 
     def build(self, page=None):
+        self._page = page
         hero = _hoverable(
             ft.Container(
                 content=ft.Column(controls=[
