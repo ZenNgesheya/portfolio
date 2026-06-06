@@ -193,9 +193,9 @@ class BlogPage:
         )
 
     def _build_video_section(self, video_url, thumb_url):
-        def open_video(e):
+        async def open_video(e):
             if self._page:
-                self._page.launch_url(video_url)
+                await self._page.launch_url_async(video_url)
 
         return ft.Container(
             content=ft.Column(controls=[
