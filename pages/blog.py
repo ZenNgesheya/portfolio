@@ -50,7 +50,7 @@ class BlogPage:
     POSTS = [
         {
             "title": "Understanding the Total Cost Formula",
-            "date": "1 June 2026",
+            "date": "15 Feb 2026",
             "summary": "A breakdown of how we calculate project costs using summation notation.",
             "content": (
                 "## Total Cost Formula\n\n"
@@ -68,11 +68,11 @@ class BlogPage:
             ),
             "video_url": "https://www.youtube.com/watch?v=XJkIaw2e1Pw",
             "video_thumb": "https://img.youtube.com/vi/XJkIaw2e1Pw/hqdefault.jpg",
-            "tags": ["Python", "Maths", "Mechanical Engineering"],
+            "tags": ["Python", "Maths", "Civil Engineering"],
         },
         {
             "title": "How Git Branching Saved Our Project",
-            "date": "2 June 2026",
+            "date": "22 Feb 2026",
             "summary": "Why we used feature branches and how pull requests kept our 20-person team in sync.",
             "content": (
                 "## Git Branching Strategy\n\n"
@@ -88,7 +88,7 @@ class BlogPage:
         },
         {
             "title": "Loops and List Comprehensions in Python",
-            "date": "3 June 2026",
+            "date": "1 Mar 2026",
             "summary": "Exploring the difference between for-loops and list comprehensions.",
             "content": (
                 "## For-loops vs List Comprehensions\n\n"
@@ -108,7 +108,7 @@ class BlogPage:
         },
         {
             "title": "Functions and Modular Code Design",
-            "date": "4 June 2026",
+            "date": "8 Mar 2026",
             "summary": "How breaking code into functions made our engineering app easier to test and maintain.",
             "content": (
                 "## Why Functions Matter\n\n"
@@ -128,7 +128,7 @@ class BlogPage:
         },
         {
             "title": "Introduction to MATLAB Matrices",
-            "date": "6 June 2026",
+            "date": "15 Mar 2026",
             "summary": "How MATLAB's matrix operations simplified our signal processing calculations.",
             "content": (
                 "## Matrices in MATLAB\n\n"
@@ -145,7 +145,7 @@ class BlogPage:
         },
         {
             "title": "Version Control Best Practices for Teams",
-            "date": "7 June 2026",
+            "date": "22 Mar 2026",
             "summary": "Lessons learned from managing a 20-person codebase.",
             "content": (
                 "## Version Control in Large Teams\n\n"
@@ -193,8 +193,7 @@ class BlogPage:
 
     def _build_video_section(self, video_url, thumb_url):
         def open_video(e):
-            import webbrowser
-            webbrowser.open(video_url)
+            e.page.launch_url(video_url)
 
         return ft.Container(
             content=ft.Column(controls=[
