@@ -193,9 +193,12 @@ class BlogPage:
         )
 
     def _build_video_section(self, video_url, thumb_url):
-        async def open_video(e):
-            if self._page:
-                await self._page.launch_url_async(video_url)
+        def open_video(e):
+            import subprocess, sys
+            if sys.platform == "win32":
+                subprocess.Popen(["start", video_url], shell=True)
+            else:
+                subprocess.Popen(["xdg-open", video_url])
 
         return ft.Container(
             content=ft.Column(controls=[
@@ -223,6 +226,7 @@ class BlogPage:
                     ink=True,
                 ),
                 ft.Text("▶ Click the thumbnail to watch on YouTube", size=11, color=ACCENT, italic=True),
+                ft.Text(video_url, size=11, color=BLUE, selectable=True, italic=True),
             ], spacing=6),
             bgcolor=SURFACE2, border_radius=8,
             padding=ft.Padding(left=12, right=12, top=12, bottom=12),
