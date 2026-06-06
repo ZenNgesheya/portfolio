@@ -194,11 +194,14 @@ class BlogPage:
 
     def _build_video_section(self, video_url, thumb_url):
         def open_video(e):
-            import subprocess, sys
-            if sys.platform == "win32":
-                subprocess.Popen(["start", video_url], shell=True)
-            else:
-                subprocess.Popen(["xdg-open", video_url])
+            try:
+                import subprocess, sys
+                if sys.platform == "win32":
+                    subprocess.Popen(["start", video_url], shell=True)
+                else:
+                    subprocess.Popen(["xdg-open", video_url])
+            except Exception:
+                pass
 
         return ft.Container(
             content=ft.Column(controls=[
