@@ -38,122 +38,125 @@ def _hoverable(container: ft.Container, accent_color: str) -> ft.Container:
     return container
 
 
+def _get_video_id(url: str) -> str:
+    if "v=" in url:
+        return url.split("v=")[-1].split("&")[0]
+    if "youtu.be/" in url:
+        return url.split("youtu.be/")[-1].split("?")[0]
+    return ""
+
+
 class BlogPage:
     POSTS = [
         {
             "title": "Understanding the Total Cost Formula",
-            "date": "15 Feb 2026",
+            "date": "1 June 2026",
             "summary": "A breakdown of how we calculate project costs using summation notation.",
-            "content": """## Total Cost Formula
-
-Total Cost = Σ (Qᵢ × Pᵢ) + Overheads
-
-Where:
-- Qᵢ = quantity of material i
-- Pᵢ = unit price of material i
-- Overheads = fixed project overhead costs
-
-### Python Implementation
-
-```python
-def calculate_total_cost(quantities, prices, overheads):
-    material_cost = sum(q * p for q, p in zip(quantities, prices))
-    return material_cost + overheads
-```
-""",
-            "video_url": None, "video_thumb": None,
-            "tags": ["Python", "Maths", "Civil Engineering"],
+            "content": (
+                "## Total Cost Formula\n\n"
+                "Total Cost = \u03a3 (Q\u1d62 \u00d7 P\u1d62) + Overheads\n\n"
+                "Where:\n"
+                "- Q\u1d62 = quantity of material i\n"
+                "- P\u1d62 = unit price of material i\n"
+                "- Overheads = fixed project overhead costs\n\n"
+                "### Python Implementation\n\n"
+                "```python\n"
+                "def calculate_total_cost(quantities, prices, overheads):\n"
+                "    material_cost = sum(q * p for q, p in zip(quantities, prices))\n"
+                "    return material_cost + overheads\n"
+                "```\n"
+            ),
+            "video_url": "https://www.youtube.com/watch?v=XJkIaw2e1Pw",
+            "video_thumb": "https://img.youtube.com/vi/XJkIaw2e1Pw/hqdefault.jpg",
+            "tags": ["Python", "Maths", "Mechanical Engineering"],
         },
         {
             "title": "How Git Branching Saved Our Project",
-            "date": "22 Feb 2026",
+            "date": "2 June 2026",
             "summary": "Why we used feature branches and how pull requests kept our 20-person team in sync.",
-            "content": """## Git Branching Strategy
-
-1. main — stable, deployable code only
-2. dev — integration branch for testing
-3. feature/your-name-feature — individual work branches
-
-No one broke main accidentally. Every merge required a code review, catching 3 critical bugs before production.
-""",
+            "content": (
+                "## Git Branching Strategy\n\n"
+                "1. main - stable, deployable code only\n"
+                "2. dev - integration branch for testing\n"
+                "3. feature/your-name-feature - individual work branches\n\n"
+                "No one broke main accidentally. Every merge required a code review, "
+                "catching 3 critical bugs before production.\n"
+            ),
             "video_url": "https://www.youtube.com/watch?v=e9lnsKot_SQ",
             "video_thumb": "https://img.youtube.com/vi/e9lnsKot_SQ/hqdefault.jpg",
             "tags": ["Git", "Collaboration", "Best Practices"],
         },
         {
             "title": "Loops and List Comprehensions in Python",
-            "date": "1 Mar 2026",
+            "date": "3 June 2026",
             "summary": "Exploring the difference between for-loops and list comprehensions.",
-            "content": """## For-loops vs List Comprehensions
-
-```python
-# Traditional loop
-costs = []
-for q, p in zip(quantities, prices):
-    costs.append(q * p)
-
-# List comprehension
-costs = [q * p for q, p in zip(quantities, prices)]
-```
-
-The comprehension is faster, more readable, and uses less memory.
-""",
-            "video_url": None, "video_thumb": None,
+            "content": (
+                "## For-loops vs List Comprehensions\n\n"
+                "```python\n"
+                "# Traditional loop\n"
+                "costs = []\n"
+                "for q, p in zip(quantities, prices):\n"
+                "    costs.append(q * p)\n\n"
+                "# List comprehension\n"
+                "costs = [q * p for q, p in zip(quantities, prices)]\n"
+                "```\n\n"
+                "The comprehension is faster, more readable, and uses less memory.\n"
+            ),
+            "video_url": "https://www.youtube.com/watch?v=YlY2g2xrl6Q",
+            "video_thumb": "https://img.youtube.com/vi/YlY2g2xrl6Q/hqdefault.jpg",
             "tags": ["Python", "Programming Concepts"],
         },
         {
             "title": "Functions and Modular Code Design",
-            "date": "8 Mar 2026",
+            "date": "4 June 2026",
             "summary": "How breaking code into functions made our engineering app easier to test and maintain.",
-            "content": """## Why Functions Matter
-
-```python
-def compute_area(length, width):
-    return length * width
-
-def compute_volume(area, depth):
-    return area * depth
-
-def compute_cost(volume, unit_price, overheads):
-    return volume * unit_price + overheads
-```
-
-Each function can now be tested independently.
-""",
-            "video_url": None, "video_thumb": None,
+            "content": (
+                "## Why Functions Matter\n\n"
+                "```python\n"
+                "def compute_area(length, width):\n"
+                "    return length * width\n\n"
+                "def compute_volume(area, depth):\n"
+                "    return area * depth\n\n"
+                "def compute_cost(volume, unit_price, overheads):\n"
+                "    return volume * unit_price + overheads\n"
+                "```\n\n"
+                "Each function can now be tested independently.\n"
+            ),
+            "video_url": "https://www.youtube.com/watch?v=89cGQjB5R4M",
+            "video_thumb": "https://img.youtube.com/vi/89cGQjB5R4M/hqdefault.jpg",
             "tags": ["Python", "Programming Concepts", "Best Practices"],
         },
         {
             "title": "Introduction to MATLAB Matrices",
-            "date": "15 Mar 2026",
+            "date": "6 June 2026",
             "summary": "How MATLAB's matrix operations simplified our signal processing calculations.",
-            "content": """## Matrices in MATLAB
-
-```matlab
-A = [1 2 3; 4 5 6; 7 8 9];
-B = A';          % Transpose
-C = A * B;       % Matrix multiplication
-```
-
-In signal processing, filters are represented as matrices enabling fast convolution.
-""",
-            "video_url": None, "video_thumb": None,
+            "content": (
+                "## Matrices in MATLAB\n\n"
+                "```matlab\n"
+                "A = [1 2 3; 4 5 6; 7 8 9];\n"
+                "B = A';          % Transpose\n"
+                "C = A * B;       % Matrix multiplication\n"
+                "```\n\n"
+                "In signal processing, filters are represented as matrices enabling fast convolution.\n"
+            ),
+            "video_url": "https://www.youtube.com/watch?v=eilJQja9qLU",
+            "video_thumb": "https://img.youtube.com/vi/eilJQja9qLU/hqdefault.jpg",
             "tags": ["MATLAB", "Maths", "Signal Processing"],
         },
         {
             "title": "Version Control Best Practices for Teams",
-            "date": "22 Mar 2026",
+            "date": "7 June 2026",
             "summary": "Lessons learned from managing a 20-person codebase.",
-            "content": """## Version Control in Large Teams
-
-- feat: add cost calculator module
-- fix: correct volume formula
-- docs: update README
-- refactor: simplify material loop logic
-
-We merged 47 pull requests with zero broken builds on main.
-""",
-            "video_url": None, "video_thumb": None,
+            "content": (
+                "## Version Control in Large Teams\n\n"
+                "- feat: add cost calculator module\n"
+                "- fix: correct volume formula\n"
+                "- docs: update README\n"
+                "- refactor: simplify material loop logic\n\n"
+                "We merged 47 pull requests with zero broken builds on main.\n"
+            ),
+            "video_url": "https://www.youtube.com/watch?v=ZBexzpgj1GE",
+            "video_thumb": "https://img.youtube.com/vi/ZBexzpgj1GE/hqdefault.jpg",
             "tags": ["Git", "Collaboration", "Best Practices"],
         },
     ]
@@ -189,29 +192,36 @@ We merged 47 pull requests with zero broken builds on main.
         )
 
     def _build_video_section(self, video_url, thumb_url):
+        def open_video(e):
+            import webbrowser
+            webbrowser.open(video_url)
+
         return ft.Container(
             content=ft.Column(controls=[
-                ft.Text("📹 Video Reference", size=13, weight=ft.FontWeight.W_600, color=TEXT_PRI),
+                ft.Text("📹 Video Reference", size=13,
+                        weight=ft.FontWeight.W_600, color=TEXT_PRI),
                 ft.Container(
                     content=ft.Stack(controls=[
-                        ft.Image(src=thumb_url, fit="cover", width=float("inf"), height=180,
-                                 error_content=ft.Container(
-                                     content=ft.Text("Video thumbnail", color=TEXT_SEC, size=12),
-                                     alignment=ft.Alignment(0, 0),
-                                 )),
+                        ft.Image(
+                            src=thumb_url,
+                            fit="cover",
+                            width=float("inf"),
+                            height=180,
+                        ),
                         ft.Container(
-                            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILLED, color="#FFFFFF", size=48),
+                            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILLED, color="#FFFFFF", size=56),
                             alignment=ft.Alignment(0, 0),
-                            bgcolor="#00000055",
+                            bgcolor="#00000066",
                             expand=True,
                         ),
                     ]),
                     border_radius=8,
                     clip_behavior=ft.ClipBehavior.HARD_EDGE,
                     height=180,
+                    on_click=open_video,
+                    ink=True,
                 ),
-                ft.Text(video_url, size=11, color=BLUE, selectable=True, italic=True),
-                ft.Text("Copy the URL above and paste it in your browser to watch.", size=11, color=TEXT_SEC),
+                ft.Text("▶ Click the thumbnail to watch on YouTube", size=11, color=ACCENT, italic=True),
             ], spacing=6),
             bgcolor=SURFACE2, border_radius=8,
             padding=ft.Padding(left=12, right=12, top=12, bottom=12),

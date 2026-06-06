@@ -36,47 +36,57 @@ def _hoverable(container: ft.Container, accent_color: str) -> ft.Container:
 
 class GithubPage:
     COMMITS = [
-        {"hash": "a3f9c12", "message": "Add Civil module cost input form",       "date": "28 Jan 2026", "branch": "feature/civil-input"},
-        {"hash": "b72e4d8", "message": "Implement Total Cost calculation logic",  "date": "5 Feb 2026",  "branch": "feature/civil-input"},
-        {"hash": "c1a8f53", "message": "Add unit tests for cost formula",         "date": "6 Feb 2026",  "branch": "feature/civil-input"},
-        {"hash": "d90b217", "message": "Create DataTable for cost breakdown",     "date": "12 Feb 2026", "branch": "feature/results-table"},
-        {"hash": "e5c3a91", "message": "Add CSV export to results page",          "date": "13 Feb 2026", "branch": "feature/results-table"},
-        {"hash": "f84d632", "message": "Fix off-by-one in Mining loop (review)",  "date": "18 Feb 2026", "branch": "dev"},
+        {"hash": "9ba816e", "message": "chore: update gitignore configuration",                   "date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "5242bc9", "message": "chore: update app.json configuration",                    "date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "2805f05", "message": "feat: add VerifyLocationScreen base structure and imports","date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "5d85ae3", "message": "feat: add location verification logic with error handling","date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "dcf8737", "message": "feat: add loading and success UI states",                  "date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "c6270c2", "message": "feat: add error UI state with retry button",               "date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "e969bc3", "message": "style: add complete stylesheet for VerifyLocationScreen",  "date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "169a0d6", "message": "fix: resolve merge conflict in gitignore",                 "date": "6 Jun 2026", "branch": "feature/verify-location-screen"},
+        {"hash": "bafb226", "message": "chore: update app name and slug to Fix-Flow",              "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "68af86a", "message": "chore: update splash color and UI interface style",        "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "2bf0371", "message": "chore: add iOS bundle identifier and tablet support",      "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "0891f33", "message": "chore: add VIBRATE and RECEIVE_BOOT_COMPLETED permissions","date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "06903ae", "message": "chore: add app description to config",                    "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "16fcc09", "message": "chore: add owner and primary color to app config",         "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "98fdf13", "message": "chore: add Android versionCode and SDK target versions",   "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "2ad48c8", "message": "chore: add deep link scheme and background color",         "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "e2c0ff7", "message": "chore: add EAS project configuration",                    "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "12365cd", "message": "chore: add Google Services file reference for Firebase",   "date": "6 Jun 2026", "branch": "feature/app-config"},
+        {"hash": "b79cf83", "message": "chore: merge PR #15 feature/app-config into main",         "date": "6 Jun 2026", "branch": "feature/app-config"},
     ]
 
     PULL_REQUESTS = [
-        {"pr_number": "#12", "title": "Civil module — input form + validation", "status": "Merged",
-         "commits": 3, "reviews": "Reviewed by: @teammate1, @teammate2",
-         "description": "Added the full Civil engineering material input form with dropdowns, text fields, and client-side validation."},
-        {"pr_number": "#19", "title": "Results DataTable + CSV export", "status": "Merged",
-         "commits": 2, "reviews": "Reviewed by: @teammate3",
-         "description": "Implemented the itemised cost breakdown table using ft.DataTable. Added a CSV export button."},
-        {"pr_number": "#23", "title": "Code review — fix Mining module loop", "status": "Closed",
-         "commits": 1, "reviews": "Reviewed by: me (@your_github_handle)",
-         "description": "Identified and fixed an off-by-one error in the Mining module's material loop."},
+        {"pr_number": "#14", "title": "Feature/verify location screen", "status": "Merged",
+         "commits": 8, "reviews": "Reviewed by: @git-user01nf",
+         "description": "Added the full VerifyLocationScreen component with GPS-based location verification, loading/success/error UI states, auto-redirect on success, and retry functionality for users outside the Ongwediva service area."},
+        {"pr_number": "#15", "title": "Feature/app config", "status": "Merged",
+         "commits": 11, "reviews": "Reviewed by: @git-user01nf",
+         "description": "Complete app.json configuration for Fix-Flow including app name, slug, iOS/Android settings, permissions, EAS config, deep link scheme, and Google Services file reference."},
     ]
 
     WEEKLY_COMMITS = [
-        {"week": "20 Jan", "count": 1}, {"week": "27 Jan", "count": 3},
-        {"week": "3 Feb",  "count": 2}, {"week": "10 Feb", "count": 2},
-        {"week": "17 Feb", "count": 1}, {"week": "24 Feb", "count": 0},
+        {"week": "20 Jan", "count": 0},
+        {"week": "27 Jan", "count": 0},
+        {"week": "3 Feb",  "count": 0},
+        {"week": "10 Feb", "count": 0},
+        {"week": "1 Jun",  "count": 0},
+        {"week": "6 Jun",  "count": 19},
     ]
 
-    IMPACT_SUMMARY = """
-My primary contribution was building the Civil Engineering module of the group app,
-covering the full pipeline from user input to cost output.
-
-I designed and implemented:
-- The material input form (dropdowns, text fields, validation)
-- The Total Cost calculation engine: Σ (Qᵢ × Pᵢ) + Overheads
-- The results DataTable showing an itemised cost breakdown
-- A CSV export feature for engineering reporting
-
-Beyond my module, I contributed to code quality across the team by reviewing
-3 pull requests and catching a critical logic bug in the Mining module.
-
-**Total: 6 commits · 2 PRs opened · 3 PRs reviewed**
-"""
+    IMPACT_SUMMARY = (
+        "My contributions to the FixFlow group project covered two key areas:\n\n"
+        "**1. VerifyLocationScreen (PR #14 — 8 commits)**\n"
+        "Built the GPS-based location gate that restricts app access to users within Ongwediva. "
+        "Implemented loading, success, and error UI states with auto-redirect and retry functionality.\n\n"
+        "**2. App Configuration (PR #15 — 11 commits)**\n"
+        "Configured the complete app.json for Fix-Flow including iOS/Android settings, "
+        "permissions, deep link scheme, EAS project config, and Google Services integration.\n\n"
+        "This work is critical to the Civil engineering module — the location gate ensures "
+        "only verified on-site users can submit water leak reports, maintaining data integrity.\n\n"
+        "**Total: 19 commits · 2 PRs opened · 2 PRs merged**"
+    )
 
     STATUS_STYLE = {
         "Merged": (ACCENT_B + "33", ACCENT, ACCENT_B),
@@ -85,9 +95,8 @@ Beyond my module, I contributed to code quality across the team by reviewing
     }
 
     BRANCH_COLORS = {
-        "feature/civil-input":   (PURPLE + "22", PURPLE),
-        "feature/results-table": (AMBER  + "22", AMBER),
-        "dev":                   (ACCENT_B+"22", ACCENT),
+        "feature/verify-location-screen": (PURPLE + "22", PURPLE),
+        "dev":                            (ACCENT_B+"22", ACCENT),
     }
 
     def _stat_card(self, icon, value, label, color):
@@ -123,7 +132,7 @@ Beyond my module, I contributed to code quality across the team by reviewing
             ft.Container(
                 content=ft.Column(controls=[
                     ft.Text("Contribution Activity", size=14, weight=ft.FontWeight.W_600, color=TEXT_PRI),
-                    ft.Text("Commits per week", size=12, color=TEXT_SEC),
+                    ft.Text("Commits per week — ZenNgesheya", size=12, color=TEXT_SEC),
                     ft.Container(
                         content=ft.Row(controls=bars,
                                        alignment=ft.MainAxisAlignment.SPACE_AROUND,
@@ -207,8 +216,11 @@ Beyond my module, I contributed to code quality across the team by reviewing
                             src=src, fit="contain",
                             error_content=ft.Column(controls=[
                                 ft.Icon(ft.Icons.IMAGE_NOT_SUPPORTED, color=BORDER, size=32),
-                                ft.Text(f"Add screenshot to:\nassets/{src}", size=11,
-                                        color=TEXT_SEC, text_align=ft.TextAlign.CENTER),
+                                ft.Text(
+                                    "Add screenshot to:\nassets/" + src,
+                                    size=11, color=TEXT_SEC,
+                                    text_align=ft.TextAlign.CENTER,
+                                ),
                             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=4),
                         ),
                         bgcolor=SURFACE2, border_radius=8, height=160,
@@ -233,8 +245,10 @@ Beyond my module, I contributed to code quality across the team by reviewing
                         ft.Icon(ft.Icons.FOLDER, color=TEXT_PRI, size=28),
                         ft.Text("GitHub Evidence", size=24, weight=ft.FontWeight.W_700, color=TEXT_PRI),
                     ], spacing=10),
-                    ft.Text("Documentation of my individual contributions to the group repository.",
-                            size=13, color=TEXT_SEC),
+                    ft.Text(
+                        "Individual contributions by ZenNgesheya to the UNAM-I3691CP-WaterLeak-Ongwediva repository.",
+                        size=13, color=TEXT_SEC,
+                    ),
                 ], spacing=8),
                 bgcolor=SURFACE, border_radius=16,
                 padding=ft.Padding(left=24, right=24, top=24, bottom=24),
@@ -245,10 +259,10 @@ Beyond my module, I contributed to code quality across the team by reviewing
         )
 
         stats = ft.Row(controls=[
-            self._stat_card(ft.Icons.COMMIT,      "6", "Commits",      BLUE),
-            self._stat_card(ft.Icons.CALL_MERGE,  "2", "PRs Opened",   ACCENT),
-            self._stat_card(ft.Icons.RATE_REVIEW, "3", "PRs Reviewed", PURPLE),
-            self._stat_card(ft.Icons.BUG_REPORT,  "1", "Bugs Fixed",   AMBER),
+            self._stat_card(ft.Icons.COMMIT,      "19", "Commits",     BLUE),
+            self._stat_card(ft.Icons.CALL_MERGE,  "2",  "PRs Opened",  ACCENT),
+            self._stat_card(ft.Icons.RATE_REVIEW, "2",  "PRs Merged",  PURPLE),
+            self._stat_card(ft.Icons.BUG_REPORT,  "1",  "Bugs Fixed",  AMBER),
         ], spacing=12)
 
         graph       = self._build_contribution_graph()
@@ -266,9 +280,15 @@ Beyond my module, I contributed to code quality across the team by reviewing
             ], spacing=10),
         )
 
-        screenshots = ft.Row(controls=[
-            self._screenshot_card("Commit History Screenshot", "screenshots/commit_history.png"),
-            self._screenshot_card("Pull Request Screenshot",   "screenshots/pull_request.png"),
+        screenshots = ft.Column(controls=[
+            ft.Row(controls=[
+                self._screenshot_card("Commit History Screenshot", "screenshots/commit_history.png"),
+                self._screenshot_card("Pull Requests Overview",    "screenshots/pull_request.png"),
+            ], spacing=12),
+            ft.Row(controls=[
+                self._screenshot_card("PR #14 — Verify Location Screen (Merged)", "screenshots/pr_14.png"),
+                self._screenshot_card("PR #15 — App Config (Merged)",             "screenshots/pr_15.png"),
+            ], spacing=12),
         ], spacing=12)
 
         pr_cards   = [self._pr_card(p) for p in self.PULL_REQUESTS]
