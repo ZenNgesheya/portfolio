@@ -193,38 +193,28 @@ class BlogPage:
         )
 
     def _build_video_section(self, video_url, thumb_url):
-        # ── FIX: use page.launch_url() so the URL opens in the user's
-        #         browser, not via subprocess on the Railway server. ──
-        def open_video(e):
-            e.page.launch_url(video_url, web_popup_window_name="_blank")
-
         return ft.Container(
             content=ft.Column(controls=[
                 ft.Text("📹 Video Reference", size=13,
                         weight=ft.FontWeight.W_600, color=TEXT_PRI),
-                ft.Container(
-                    content=ft.Stack(controls=[
-                        ft.Image(
-                            src=thumb_url,
-                            fit="cover",
-                            width=float("inf"),
-                            height=180,
-                        ),
-                        ft.Container(
-                            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILLED, color="#FFFFFF", size=56),
-                            alignment=ft.Alignment(0, 0),
-                            bgcolor="#00000066",
-                            expand=True,
-                        ),
-                    ]),
-                    border_radius=8,
-                    clip_behavior=ft.ClipBehavior.HARD_EDGE,
+                ft.Image(
+                    src=thumb_url,
+                    fit="cover",
+                    width=float("inf"),
                     height=180,
-                    on_click=open_video,
-                    ink=True,
+                    border_radius=8,
                 ),
-                ft.Text("▶ Click the thumbnail to watch on YouTube", size=11, color=ACCENT, italic=True),
-                ft.Text(video_url, size=11, color=BLUE, selectable=True, italic=True),
+                ft.Text(
+                    "▶ Click the link below to watch on YouTube",
+                    size=11, color=ACCENT, italic=True,
+                ),
+                ft.Text(
+                    video_url,
+                    size=12,
+                    color=BLUE,
+                    selectable=True,
+                    url=video_url,
+                ),
             ], spacing=6),
             bgcolor=SURFACE2, border_radius=8,
             padding=ft.Padding(left=12, right=12, top=12, bottom=12),
