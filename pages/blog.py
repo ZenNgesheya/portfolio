@@ -14,7 +14,7 @@ BLUE     = "#58A6FF"
 
 
 def _estimate_read_time(content: str) -> str:
-    words   = len(content.split())
+    words = len(content.split())
     minutes = max(1, math.ceil(words / 200))
     return f"{minutes} min read"
 
@@ -22,17 +22,19 @@ def _estimate_read_time(content: str) -> str:
 def _hoverable(container: ft.Container, accent_color: str) -> ft.Container:
     container.animate = 200
 
-    def on_hover(e, c=container, col=accent_color):
+    def on_hover(e):
         if e.data == "true":
-            c.bgcolor = SURFACE2
-            c.border  = ft.Border.all(1, col)
-            c.shadow  = ft.BoxShadow(spread_radius=0, blur_radius=18,
-                                     color=col + "33", offset=ft.Offset(0, 4))
+            container.bgcolor = SURFACE2
+            container.border = ft.Border.all(1, accent_color)
+            container.shadow = ft.BoxShadow(
+                spread_radius=0, blur_radius=18,
+                color=accent_color + "33", offset=ft.Offset(0, 4)
+            )
         else:
-            c.bgcolor = SURFACE
-            c.border  = ft.Border.all(1, BORDER)
-            c.shadow  = None
-        c.update()
+            container.bgcolor = SURFACE
+            container.border = ft.Border.all(1, BORDER)
+            container.shadow = None
+        container.update()
 
     container.on_hover = on_hover
     return container
@@ -165,8 +167,8 @@ class BlogPage:
 
     def __init__(self):
         self._active_tag = None
-        self._cards_ref  = ft.Ref[ft.Column]()
-        self._page       = None
+        self._cards_ref = ft.Ref[ft.Column]()
+        self._page = None
 
     def _tag_chip(self, label):
         return ft.Container(
@@ -192,38 +194,93 @@ class BlogPage:
             ink=True,
         )
 
-    def _build_video_section(self, video_url, thumb_url):
+    # ---------------- NEW: Video player with play button overlay ----------------
+    def _play_video_dialog(self, video_url: str):
+        """Creates a dialog with an embedded YouTube player (autoplay)."""
+        video_id = _get_video_id(video_url)
+        if not video_id:
+            return None
+        # YouTube embed URL with autoplay=1 & modest branding
+        embed_src = f"https://www.youtube.com/embed/{video_id}?autoplay=1&modestbranding=1&rel=0"
+        webview = ft.WebView(
+            src=embed_src,
+            width=800,
+            height=450,
+            expand=False,
+        )
+        dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Video Player", size=16, weight=ft.FontWeight.W_600),
+            content=ft.Container(
+                content=webview,
+                width=820,
+                height=470,
+                padding=0,
+            ),
+            actions=[
+                ft.TextButton("Close", on_click=lambda e: self._close_dialog(dialog))
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+        return dialog
+
+    def _close_dialog(self, dialog):
+        dialog.open = False
+        if self._page:
+            self._page.update()
+
+    def _build_video_section(self, video_url: str, thumb_url: str):
+        """Thumbnail with play button overlay → opens dialog on click."""
+        def on_play_click(e):
+            dialog = self._play_video_dialog(video_url)
+            if dialog and self._page:
+                self._page.dialog = dialog
+                dialog.open = True
+                self._page.update()
+
+        # Thumbnail image
+        thumb_img = ft.Image(
+            src=thumb_url,
+            width=float("inf"),
+            height=180,
+            fit=ft.ImageFit.COVER,
+            border_radius=8,
+        )
+
+        # Semi‑transparent overlay with play icon
+        play_overlay = ft.Container(
+            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, size=56, color=ft.Colors.WHITE),
+            alignment=ft.alignment.center,
+            bgcolor=ft.Colors.BLACK26,
+            border_radius=8,
+            on_click=on_play_click,
+            ink=True,
+        )
+
+        # Stack = thumbnail + clickable play overlay
+        video_stack = ft.Stack(
+            controls=[thumb_img, play_overlay],
+            width=float("inf"),
+            height=180,
+        )
+
         return ft.Container(
             content=ft.Column(controls=[
                 ft.Text("📹 Video Reference", size=13,
                         weight=ft.FontWeight.W_600, color=TEXT_PRI),
-                ft.Image(
-                    src=thumb_url,
-                    fit="cover",
-                    width=float("inf"),
-                    height=180,
-                    border_radius=8,
-                ),
-                ft.Text(
-                    "▶ Click the link below to watch on YouTube",
-                    size=11, color=ACCENT, italic=True,
-                ),
-                ft.Text(
-                    video_url,
-                    size=12,
-                    color=BLUE,
-                    selectable=True,
-                    url=video_url,
-                ),
+                video_stack,
+                ft.Text("Click the play button to watch inside the app",
+                        size=11, color=ACCENT, italic=True),
             ], spacing=6),
-            bgcolor=SURFACE2, border_radius=8,
+            bgcolor=SURFACE2,
+            border_radius=8,
             padding=ft.Padding(left=12, right=12, top=12, bottom=12),
             margin=ft.Margin(left=0, right=0, top=8, bottom=0),
             border=ft.Border.all(1, BORDER),
         )
 
     def _build_post_card(self, post):
-        read_time   = _estimate_read_time(post["content"])
+        read_time = _estimate_read_time(post["content"])
         content_col = ft.Column(
             controls=[ft.Markdown(post["content"], selectable=True,
                                   extension_set="gitHubFlavored",
@@ -235,12 +292,12 @@ class BlogPage:
                 self._build_video_section(post["video_url"], post["video_thumb"])
             )
 
-        btn_text   = ft.Text("Read more ▾", color=ACCENT, size=13)
+        btn_text = ft.Text("Read more ▾", color=ACCENT, size=13)
         expand_btn = ft.TextButton(content=btn_text)
 
         def toggle_expand(e, cc=content_col, bt=btn_text):
             cc.visible = not cc.visible
-            bt.value   = "Read less ▴" if cc.visible else "Read more ▾"
+            bt.value = "Read less ▴" if cc.visible else "Read more ▾"
             e.page.update()
 
         expand_btn.on_click = toggle_expand
@@ -282,6 +339,7 @@ class BlogPage:
         def make_handler(label):
             def handler(e):
                 self._active_tag = None if label == "All" else label
+                # Refresh filter chips appearance
                 filter_row.controls = [self._filter_chip(l, make_handler(l)) for l in all_labels]
                 self._rebuild_cards(page)
             return handler
@@ -328,9 +386,9 @@ class BlogPage:
             ACCENT,
         )
 
-        cards_col  = ft.Column(ref=self._cards_ref,
-                               controls=[self._build_post_card(p) for p in self.POSTS],
-                               spacing=0)
+        cards_col = ft.Column(ref=self._cards_ref,
+                              controls=[self._build_post_card(p) for p in self.POSTS],
+                              spacing=0)
         filter_row = self._make_filter_row(page) if page else ft.Row(spacing=8)
 
         return ft.Column(controls=[
@@ -340,3 +398,18 @@ class BlogPage:
             ft.Divider(height=16, color="transparent"),
             cards_col,
         ], spacing=8, scroll=ft.ScrollMode.AUTO)
+
+
+def main(page: ft.Page):
+    page.title = "Tech Blog"
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = BG
+    page.padding = 30
+    page.scroll = ft.ScrollMode.AUTO
+
+    blog = BlogPage()
+    page.add(blog.build(page))
+
+
+if __name__ == "__main__":
+    ft.app(target=main)
