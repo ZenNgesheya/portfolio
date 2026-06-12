@@ -193,15 +193,11 @@ class BlogPage:
         )
 
     def _build_video_section(self, video_url, thumb_url):
+        # ── FIX: use page.launch_url() so the URL opens in the user's
+        #         browser, not via subprocess on the Railway server. ──
         def open_video(e):
-            try:
-                import subprocess, sys
-                if sys.platform == "win32":
-                    subprocess.Popen(["start", video_url], shell=True)
-                else:
-                    subprocess.Popen(["xdg-open", video_url])
-            except Exception:
-                pass
+            if e.page:
+                e.page.launch_url(video_url)
 
         return ft.Container(
             content=ft.Column(controls=[
