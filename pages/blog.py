@@ -196,7 +196,7 @@ class BlogPage:
         # ── FIX: use page.launch_url() so the URL opens in the user's
         #         browser, not via subprocess on the Railway server. ──
         def open_video(e):
-            e.page.launch_url(video_url, web_window_name="_blank")
+            e.page.launch_url(video_url, web_popup_window_name="_blank")
 
         return ft.Container(
             content=ft.Column(controls=[
