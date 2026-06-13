@@ -177,9 +177,9 @@ class BlogPage:
                 "Maps:      Google Maps API\n"
                 "\`\`\`\n"
             ),
-            "local_video": "assets/fixflow_demo.mp4",
-            "video_url": None,
-            "video_thumb": None,
+            "local_video": None,
+            "video_url": "https://drive.google.com/file/d/1uEXD0AP0FkDZLDlWFYCt1_Nt5-w4tq1l/view?usp=sharing",
+            "video_thumb": "https://drive.google.com/thumbnail?id=1uEXD0AP0FkDZLDlWFYCt1_Nt5-w4tq1l&sz=w480-h270",
             "tags": ["React Native", "FixFlow", "Teamwork", "Git"],
         },
     ]
@@ -295,7 +295,7 @@ class BlogPage:
             content=ft.Column(controls=[
                 ft.Text("Video Reference", size=13, weight=ft.FontWeight.W_600, color=TEXT_PRI),
                 video_stack,
-                ft.TextButton("Click to watch on YouTube", on_click=on_play_click,
+                ft.TextButton("Click to watch on Google Drive", on_click=on_play_click,
                               style=ft.ButtonStyle(color=ACCENT)),
             ], spacing=6),
             bgcolor=SURFACE2, border_radius=8,
