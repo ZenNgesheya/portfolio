@@ -206,38 +206,119 @@ class GithubPage:
             fg,
         )
 
-    def _screenshot_card(self, title, src):
-        return _hoverable(
-            ft.Container(
-                content=ft.Column(controls=[
-                    ft.Text(title, size=13, weight=ft.FontWeight.W_600, color=TEXT_PRI),
-                    ft.Container(
-                        content=ft.Image(
-                            src=src, fit="contain",
-                            error_content=ft.Column(controls=[
-                                ft.Icon(ft.Icons.IMAGE_NOT_SUPPORTED, color=BORDER, size=32),
-                                ft.Text(
-                                    "Add screenshot to:\nassets/" + src,
-                                    size=11, color=TEXT_SEC,
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                            ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=4),
-                        ),
-                        bgcolor=SURFACE2, border_radius=8, height=160,
-                        border=ft.Border.all(1, BORDER),
-                        clip_behavior=ft.ClipBehavior.HARD_EDGE,
-                        alignment=ft.Alignment(0, 0),
-                    ),
-                ], spacing=6),
-                bgcolor=SURFACE, border_radius=12,
-                padding=ft.Padding(left=12, right=12, top=12, bottom=12),
-                border=ft.Border.all(1, BORDER),
-                expand=True,
-            ),
-            BLUE,
-        )
+    def _screenshot_card(self, title, src, page_ref):
 
-    def build(self):
+        def open_lightbox(e):
+            # backdrop + modal box built as an overlay
+            def close_lightbox(e):
+                page_ref.overlay.clear()
+                page_ref.update()
+
+            modal_box = ft.Container(
+                content=ft.Column(
+                    controls=[
+                        ft.Row(controls=[
+                            ft.Text(title, size=14, weight=ft.FontWeight.W_600,
+                                    color=TEXT_PRI, expand=True),
+                            ft.IconButton(
+                                icon=ft.Icons.CLOSE,
+                                icon_color=TEXT_SEC,
+                                tooltip="Close",
+                                on_click=close_lightbox,
+                            ),
+                        ]),
+                        ft.Container(
+                            content=ft.Image(
+                                src=src,
+                                fit="contain",
+                                error_content=ft.Column(controls=[
+                                    ft.Icon(ft.Icons.IMAGE_NOT_SUPPORTED, color=BORDER, size=48),
+                                    ft.Text("Screenshot not found", size=13, color=TEXT_SEC),
+                                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=6),
+                            ),
+                            width=700,
+                            height=480,
+                            bgcolor=SURFACE2,
+                            border_radius=8,
+                            clip_behavior=ft.ClipBehavior.HARD_EDGE,
+                            alignment=ft.Alignment(0, 0),
+                        ),
+                    ],
+                    spacing=10,
+                    tight=True,
+                ),
+                bgcolor=SURFACE,
+                border_radius=12,
+                border=ft.Border.all(1, BORDER),
+                padding=ft.Padding(left=16, right=16, top=12, bottom=16),
+                width=740,
+                shadow=ft.BoxShadow(
+                    spread_radius=0, blur_radius=40,
+                    color="#000000AA", offset=ft.Offset(0, 8)
+                ),
+            )
+
+            backdrop = ft.Container(
+                content=modal_box,
+                bgcolor="#000000BB",
+                alignment=ft.Alignment(0, 0),
+                expand=True,
+                on_click=close_lightbox,  # click outside to close
+            )
+
+            page_ref.overlay.clear()
+            page_ref.overlay.append(backdrop)
+            page_ref.update()
+
+        card = ft.Container(
+            content=ft.Column(controls=[
+                ft.Text(title, size=13, weight=ft.FontWeight.W_600, color=TEXT_PRI),
+                ft.Stack(
+                    controls=[
+                        ft.Container(
+                            content=ft.Image(
+                                src=src,
+                                fit="contain",
+                                error_content=ft.Column(controls=[
+                                    ft.Icon(ft.Icons.IMAGE_NOT_SUPPORTED, color=BORDER, size=32),
+                                    ft.Text(
+                                        "Add screenshot to:\nassets/" + src,
+                                        size=11, color=TEXT_SEC,
+                                        text_align=ft.TextAlign.CENTER,
+                                    ),
+                                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=4),
+                            ),
+                            bgcolor=SURFACE2, border_radius=8, height=160,
+                            border=ft.Border.all(1, BORDER),
+                            clip_behavior=ft.ClipBehavior.HARD_EDGE,
+                            alignment=ft.Alignment(0, 0),
+                        ),
+                        # Zoom icon badge bottom-right
+                        ft.Container(
+                            content=ft.Container(
+                                content=ft.Icon(ft.Icons.ZOOM_IN, color=TEXT_PRI, size=16),
+                                bgcolor=SURFACE2 + "CC",
+                                border_radius=6,
+                                padding=ft.Padding(left=6, right=6, top=4, bottom=4),
+                                border=ft.Border.all(1, BORDER),
+                            ),
+                            alignment=ft.Alignment(1, 1),
+                            padding=ft.Padding(left=0, right=8, top=0, bottom=8),
+                        ),
+                    ],
+                    height=160,
+                ),
+            ], spacing=6),
+            bgcolor=SURFACE, border_radius=12,
+            padding=ft.Padding(left=12, right=12, top=12, bottom=12),
+            border=ft.Border.all(1, BORDER),
+            expand=True,
+            on_click=open_lightbox,
+            ink=True,
+        )
+        return _hoverable(card, BLUE)
+
+    def build(self, page: ft.Page):
         hero = _hoverable(
             ft.Container(
                 content=ft.Column(controls=[
@@ -282,12 +363,12 @@ class GithubPage:
 
         screenshots = ft.Column(controls=[
             ft.Row(controls=[
-                self._screenshot_card("Commit History Screenshot", "screenshots/commit_history.png"),
-                self._screenshot_card("Pull Requests Overview",    "screenshots/pull_request.png"),
+                self._screenshot_card("Commit History Screenshot", "screenshots/commit_history.png", page),
+                self._screenshot_card("Pull Requests Overview",    "screenshots/pull_request.png",   page),
             ], spacing=12),
             ft.Row(controls=[
-                self._screenshot_card("PR #14 — Verify Location Screen (Merged)", "screenshots/pr_14.png"),
-                self._screenshot_card("PR #15 — App Config (Merged)",             "screenshots/pr_15.png"),
+                self._screenshot_card("PR #14 — Verify Location Screen (Merged)", "screenshots/pr_14.png",  page),
+                self._screenshot_card("PR #15 — App Config (Merged)",             "screenshots/pr_15.png",  page),
             ], spacing=12),
         ], spacing=12)
 

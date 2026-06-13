@@ -1,7 +1,9 @@
-import flet as ft
-import math
-import subprocess
 import os
+
+path = r'C:\Users\Micha\OneDrive\Desktop\COMPUTER PROGRAMMING 1\portfolio\pages\blog.py'
+
+content = r'''import flet as ft
+import math
 
 BG       = "#0D1117"
 SURFACE  = "#161B22"
@@ -36,12 +38,19 @@ def _hoverable(container: ft.Container, accent_color: str) -> ft.Container:
     container.on_hover = on_hover
     return container
 
+def _get_video_id(url: str) -> str:
+    if "v=" in url:
+        return url.split("v=")[-1].split("&")[0]
+    if "youtu.be/" in url:
+        return url.split("youtu.be/")[-1].split("?")[0]
+    return ""
+
 class BlogPage:
     POSTS = [
         {
             "title": "Understanding the Total Cost Formula",
             "date": "15 Feb 2026",
-            "summary": "A breakdown of how we calculate project costs using summation notation and Python.",
+            "summary": "A breakdown of how we calculate project costs using summation notation.",
             "content": (
                 "## Total Cost Formula\n\n"
                 "Total Cost = Sum(Qi x Pi) + Overheads\n\n"
@@ -50,15 +59,14 @@ class BlogPage:
                 "- Pi = unit price of material i\n"
                 "- Overheads = fixed project overhead costs\n\n"
                 "### Python Implementation\n\n"
-                "\`\`\`python\n"
+                "```python\n"
                 "def calculate_total_cost(quantities, prices, overheads):\n"
                 "    material_cost = sum(q * p for q, p in zip(quantities, prices))\n"
                 "    return material_cost + overheads\n"
-                "\`\`\`\n"
+                "```\n"
             ),
             "video_url": "https://www.youtube.com/watch?v=XJkIaw2e1Pw",
             "video_thumb": "https://img.youtube.com/vi/XJkIaw2e1Pw/hqdefault.jpg",
-            "local_video": None,
             "tags": ["Python", "Maths", "Civil Engineering"],
         },
         {
@@ -70,17 +78,11 @@ class BlogPage:
                 "1. main - stable, deployable code only\n"
                 "2. dev - integration branch for testing\n"
                 "3. feature/your-name-feature - individual work branches\n\n"
-                "No one pushed directly to main. Every merge required a pull request and code review, "
-                "which caught 3 critical bugs before they reached production.\n\n"
-                "\`\`\`bash\n"
-                "git checkout -b feature/admin-panel-screen\n"
-                "git commit -m 'feat: add admin panel layout'\n"
-                "git push origin feature/admin-panel-screen\n"
-                "\`\`\`\n"
+                "No one broke main accidentally. Every merge required a code review, "
+                "catching 3 critical bugs before production.\n"
             ),
-            "video_url": "https://www.youtube.com/watch?v=e2IbNHi4uCI",
-            "video_thumb": "https://img.youtube.com/vi/e2IbNHi4uCI/hqdefault.jpg",
-            "local_video": None,
+            "video_url": "https://www.youtube.com/watch?v=e9lnsKot_SQ",
+            "video_thumb": "https://img.youtube.com/vi/e9lnsKot_SQ/hqdefault.jpg",
             "tags": ["Git", "Collaboration", "Best Practices"],
         },
         {
@@ -89,17 +91,18 @@ class BlogPage:
             "summary": "Exploring the difference between for-loops and list comprehensions.",
             "content": (
                 "## For-loops vs List Comprehensions\n\n"
-                "\`\`\`python\n"
+                "```python\n"
+                "# Traditional loop\n"
                 "costs = []\n"
                 "for q, p in zip(quantities, prices):\n"
                 "    costs.append(q * p)\n\n"
+                "# List comprehension\n"
                 "costs = [q * p for q, p in zip(quantities, prices)]\n"
-                "\`\`\`\n\n"
-                "List comprehensions are faster, more readable, and use less memory.\n"
+                "```\n\n"
+                "The comprehension is faster, more readable, and uses less memory.\n"
             ),
-            "video_url": "https://www.youtube.com/watch?v=_f3qQgOU6No",
-            "video_thumb": "https://img.youtube.com/vi/_f3qQgOU6No/hqdefault.jpg",
-            "local_video": None,
+            "video_url": "https://www.youtube.com/watch?v=YlY2g2xrl6Q",
+            "video_thumb": "https://img.youtube.com/vi/YlY2g2xrl6Q/hqdefault.jpg",
             "tags": ["Python", "Programming Concepts"],
         },
         {
@@ -108,19 +111,18 @@ class BlogPage:
             "summary": "How breaking code into functions made our engineering app easier to test and maintain.",
             "content": (
                 "## Why Functions Matter\n\n"
-                "\`\`\`python\n"
+                "```python\n"
                 "def compute_area(length, width):\n"
                 "    return length * width\n\n"
                 "def compute_volume(area, depth):\n"
                 "    return area * depth\n\n"
                 "def compute_cost(volume, unit_price, overheads):\n"
                 "    return volume * unit_price + overheads\n"
-                "\`\`\`\n\n"
-                "Each function does one thing only, making testing and debugging easier.\n"
+                "```\n\n"
+                "Each function can now be tested independently.\n"
             ),
             "video_url": "https://www.youtube.com/watch?v=89cGQjB5R4M",
             "video_thumb": "https://img.youtube.com/vi/89cGQjB5R4M/hqdefault.jpg",
-            "local_video": None,
             "tags": ["Python", "Programming Concepts", "Best Practices"],
         },
         {
@@ -129,58 +131,32 @@ class BlogPage:
             "summary": "How MATLAB matrix operations simplified our signal processing calculations.",
             "content": (
                 "## Matrices in MATLAB\n\n"
-                "\`\`\`matlab\n"
+                "```matlab\n"
                 "A = [1 2 3; 4 5 6; 7 8 9];\n"
-                "B = A'\n"
-                "C = A * B;\n"
-                "\`\`\`\n\n"
-                "MATLAB makes matrix operations fast and readable for engineering applications.\n"
+                "B = A'          % Transpose\n"
+                "C = A * B;      % Matrix multiplication\n"
+                "```\n\n"
+                "In signal processing, filters are represented as matrices enabling fast convolution.\n"
             ),
             "video_url": "https://www.youtube.com/watch?v=eilJQja9qLU",
             "video_thumb": "https://img.youtube.com/vi/eilJQja9qLU/hqdefault.jpg",
-            "local_video": None,
             "tags": ["MATLAB", "Maths", "Signal Processing"],
         },
         {
             "title": "Version Control Best Practices for Teams",
             "date": "22 Mar 2026",
-            "summary": "Lessons learned from managing a 20-person codebase with zero broken builds on main.",
+            "summary": "Lessons learned from managing a 20-person codebase.",
             "content": (
                 "## Version Control in Large Teams\n\n"
-                "\`\`\`text\n"
-                "feat: add cost calculator module\n"
-                "fix: correct volume formula\n"
-                "docs: update README\n"
-                "\`\`\`\n\n"
+                "- feat: add cost calculator module\n"
+                "- fix: correct volume formula\n"
+                "- docs: update README\n"
+                "- refactor: simplify material loop logic\n\n"
                 "We merged 47 pull requests with zero broken builds on main.\n"
             ),
-            "video_url": "https://www.youtube.com/watch?v=0vzYWyHmcY8",
-            "video_thumb": "https://img.youtube.com/vi/0vzYWyHmcY8/hqdefault.jpg",
-            "local_video": None,
+            "video_url": "https://www.youtube.com/watch?v=ZBexzpgj1GE",
+            "video_thumb": "https://img.youtube.com/vi/ZBexzpgj1GE/hqdefault.jpg",
             "tags": ["Git", "Collaboration", "Best Practices"],
-        },
-        {
-            "title": "My Role in Building FixFlow",
-            "date": "12 Jun 2026",
-            "summary": "A walkthrough of my contributions to FixFlow, a React Native water leak reporting app for Ongwediva.",
-            "content": (
-                "## FixFlow — Water Leak Reporting App\n\n"
-                "Built with React Native for the Ongwediva community.\n\n"
-                "### My Contributions\n\n"
-                "- Built the AdminPanelScreen\n"
-                "- 15 commits on feature/admin-panel-screen branch\n"
-                "- Submitted PR #21 for team review\n\n"
-                "\`\`\`text\n"
-                "Frontend:  React Native + Expo\n"
-                "Auth:      Firebase Authentication\n"
-                "Database:  Firebase Firestore\n"
-                "Maps:      Google Maps API\n"
-                "\`\`\`\n"
-            ),
-            "local_video": "assets/fixflow_demo.mp4",
-            "video_url": None,
-            "video_thumb": None,
-            "tags": ["React Native", "FixFlow", "Teamwork", "Git"],
         },
     ]
 
@@ -214,91 +190,41 @@ class BlogPage:
             ink=True,
         )
 
-    def _build_local_video_section(self, video_path: str):
-        full_path = os.path.abspath(video_path)
+    def _build_video_section(self, video_url: str, thumb_url: str):
         def on_play_click(e):
-            try:
-                subprocess.Popen(["cmd", "/c", "start", "", full_path])
-            except Exception:
-                pass
-        play_btn = ft.Container(
-            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, size=56, color="#FFFFFF"),
-            alignment=ft.Alignment(0, 0),
-            bgcolor="#00000066",
-            border_radius=8,
-            on_click=on_play_click,
-            ink=True,
-            expand=True,
-        )
-        thumb = ft.Container(
-            bgcolor="#1C2128",
-            border_radius=8,
+            if self._page:
+                self._page.launch_url(video_url)
+
+        thumb_img = ft.Image(
+            src=thumb_url,
+            width=float("inf"),
             height=180,
-            expand=True,
-            content=ft.Column(
-                controls=[
-                    ft.Icon(ft.Icons.VIDEOCAM, size=48, color=TEXT_SEC),
-                    ft.Text("FixFlow Demo", size=13, color=TEXT_SEC),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            ),
-        )
-        video_stack = ft.Stack(controls=[thumb, play_btn], height=180)
-        return ft.Container(
-            content=ft.Column(controls=[
-                ft.Text("Demo Video", size=13, weight=ft.FontWeight.W_600, color=TEXT_PRI),
-                video_stack,
-                ft.TextButton("Open Demo Video", on_click=on_play_click,
-                              style=ft.ButtonStyle(color=ACCENT)),
-            ], spacing=6),
-            bgcolor=SURFACE2, border_radius=8,
-            padding=ft.Padding(left=12, right=12, top=12, bottom=12),
-            margin=ft.Margin(left=0, right=0, top=8, bottom=0),
-            border=ft.Border.all(1, BORDER),
-        )
-
-    def _build_video_section(self, video_url: str, thumb_url: str, page_ref=None):
-        def on_play_click(e):
-            import asyncio
-            async def _open():
-                await e.page.launch_url(video_url)
-            asyncio.run_coroutine_threadsafe(_open(), e.page.loop)
-
-        # Thumbnail fills the full width, cropped to 180px height
-        thumb_img = ft.Container(
-            content=ft.Image(
-                src=thumb_url,
-                fit="cover",
-                width=float("inf"),
-                height=180,
-            ),
-            height=180,
-            clip_behavior=ft.ClipBehavior.HARD_EDGE,
+            fit=ft.ImageFit.COVER,
             border_radius=8,
-            expand=True,
         )
-
         play_overlay = ft.Container(
-            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, size=64, color="#FFFFFF"),
-            alignment=ft.Alignment(0, 0),
-            bgcolor="#00000055",
+            content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, size=56, color=ft.Colors.WHITE),
+            alignment=ft.alignment.center,
+            bgcolor=ft.Colors.BLACK26,
             border_radius=8,
             on_click=on_play_click,
             ink=True,
-            expand=True,
         )
-
-        video_stack = ft.Stack(controls=[thumb_img, play_overlay], height=180)
-
+        video_stack = ft.Stack(
+            controls=[thumb_img, play_overlay],
+            width=float("inf"),
+            height=180,
+        )
         return ft.Container(
             content=ft.Column(controls=[
-                ft.Text("Video Reference", size=13, weight=ft.FontWeight.W_600, color=TEXT_PRI),
+                ft.Text("Video Reference", size=13,
+                        weight=ft.FontWeight.W_600, color=TEXT_PRI),
                 video_stack,
-                ft.TextButton("Click to watch on YouTube", on_click=on_play_click,
-                              style=ft.ButtonStyle(color=ACCENT)),
+                ft.Text("Click to watch on YouTube",
+                        size=11, color=ACCENT, italic=True),
             ], spacing=6),
-            bgcolor=SURFACE2, border_radius=8,
+            bgcolor=SURFACE2,
+            border_radius=8,
             padding=ft.Padding(left=12, right=12, top=12, bottom=12),
             margin=ft.Margin(left=0, right=0, top=8, bottom=0),
             border=ft.Border.all(1, BORDER),
@@ -312,10 +238,10 @@ class BlogPage:
                                   code_theme="atom-one-dark")],
             visible=False,
         )
-        if post.get("local_video"):
-            content_col.controls.append(self._build_local_video_section(post["local_video"]))
-        elif post.get("video_url") and post.get("video_thumb"):
-            content_col.controls.append(self._build_video_section(post["video_url"], post["video_thumb"]))
+        if post.get("video_url") and post.get("video_thumb"):
+            content_col.controls.append(
+                self._build_video_section(post["video_url"], post["video_thumb"])
+            )
 
         btn_text = ft.Text("Read more", color=ACCENT, size=13)
         expand_btn = ft.TextButton(content=btn_text)
@@ -355,6 +281,7 @@ class BlogPage:
     def build(self, page):
         self._page = page
         self._active_tag = None
+
         all_labels = ["All"] + self.ALL_TAGS
         cards_col = ft.Column(controls=[], spacing=0)
 
@@ -375,6 +302,7 @@ class BlogPage:
             controls=[self._filter_chip(l, make_handler(l)) for l in all_labels],
             spacing=8, wrap=True,
         )
+
         rebuild_cards()
 
         hero = _hoverable(
@@ -418,3 +346,8 @@ class BlogPage:
             ft.Divider(height=16, color="transparent"),
             cards_col,
         ], spacing=8, scroll=ft.ScrollMode.AUTO)
+'''
+
+with open(path, 'w', encoding='utf-8') as f:
+    f.write(content)
+print("Done! blog.py written successfully.")

@@ -5,7 +5,6 @@ from pages.matlab import MatlabPage
 from pages.blog import BlogPage
 from pages.github import GithubPage
 
-# ── Shared dark-theme colours ─────────────────────────────────────────────────
 BG       = "#0D1117"
 SURFACE  = "#161B22"
 BORDER   = "#30363D"
@@ -28,7 +27,6 @@ def main(page: ft.Page):
     blog_page     = BlogPage()
     github_page   = GithubPage()
 
-    # ── Fade wrapper ──────────────────────────────────────────────────────────
     fade_wrapper = ft.Container(
         expand=True,
         opacity=1,
@@ -64,30 +62,33 @@ def main(page: ft.Page):
         import time, threading
 
         def do_switch():
-            time.sleep(0.25)
-            current_index["v"] = idx
-            rebuild_nav()
+            try:
+                time.sleep(0.25)
+                current_index["v"] = idx
+                rebuild_nav()
 
-            if idx == 0:
-                fade_wrapper.content = home_page.build()
-            elif idx == 1:
-                fade_wrapper.content = timeline_page.build()
-            elif idx == 2:
-                fade_wrapper.content = matlab_page.build()
-                threading.Thread(
-                    target=matlab_page._run_animations, daemon=True
-                ).start()
-            elif idx == 3:
-                fade_wrapper.content = blog_page.build(page)
-            elif idx == 4:
-                fade_wrapper.content = github_page.build()
-
-            fade_wrapper.opacity = 1
-            page.update()
+                if idx == 0:
+                    fade_wrapper.content = home_page.build()
+                elif idx == 1:
+                    fade_wrapper.content = timeline_page.build()
+                elif idx == 2:
+                    fade_wrapper.content = matlab_page.build()
+                    threading.Thread(
+                        target=matlab_page._run_animations, daemon=True
+                    ).start()
+                elif idx == 3:
+                    fade_wrapper.content = blog_page.build(page)
+                elif idx == 4:
+                    fade_wrapper.content = github_page.build(page)
+                fade_wrapper.opacity = 1
+                page.update()
+            except Exception as ex:
+                import traceback
+                traceback.print_exc()
+                print(f"ERROR: {ex}")
 
         threading.Thread(target=do_switch, daemon=True).start()
 
-    # Build nav buttons
     for i, (lbl, ico) in enumerate(zip(nav_labels, nav_icons)):
         active = i == 0
         btn = ft.Container(
@@ -110,7 +111,6 @@ def main(page: ft.Page):
         )
         nav_buttons.append(btn)
 
-    # ── Top navbar ────────────────────────────────────────────────────────────
     topbar = ft.Container(
         content=ft.Row(
             controls=[
